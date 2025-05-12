@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+</head>
+<body>
+  <h1>Admin Panel</h1>
+  <form method="POST" action="/admin/add">
+    <input name="name" placeholder="Camera Name" required />
+    <input name="url" placeholder="RTSP URL" required />
+    <button>Add Camera</button>
+  </form>
+
+  <% cams.forEach(cam => { %>
+    <div>
+      <strong><%= cam.name %></strong><br>
+      <form method="POST" action="/admin/delete" style="display:inline;">
+        <input type="hidden" name="name" value="<%= cam.name %>" />
+        <button>Delete</button>
+      </form>
+      <form method="POST" action="/admin/restart" style="display:inline;">
+        <input type="hidden" name="name" value="<%= cam.name %>" />
+        <button>Restart</button>
+      </form>
+      <form method="POST" action="/admin/reboot-device" style="display:inline;">
+        <input type="hidden" name="name" value="<%= cam.name %>" />
+        <button>Reboot</button>
+      </form>
+    </div>
+  <% }) %>
+
+  <form method="POST" action="/admin/reboot-all">
+    <button>Reboot All Devices</button>
+  </form>
+</body>
+</html>

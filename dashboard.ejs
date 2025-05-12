@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Camera Dashboard</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <style>
+    video, img { border: 1px solid #ccc; margin: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Live Camera Dashboard</h1>
+  <% cams.forEach(cam => { %>
+    <div>
+      <h3><%= cam.name %></h3>
+      <video width="400" controls autoplay muted loop>
+        <source src="/streams/<%= cam.name %>/index.m3u8" type="application/x-mpegURL">
+      </video><br>
+      <img src="/streams/<%= cam.name %>.jpg?ts=<%= Date.now() %>" width="400" />
+    </div>
+  <% }) %>
+  <script>
+    setInterval(() => {
+      document.querySelectorAll('img').forEach(img => {
+        img.src = img.src.split('?')[0] + '?ts=' + Date.now();
+      });
+    }, 10000);
+  </script>
+</body>
+</html>
