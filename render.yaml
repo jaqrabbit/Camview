@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: ip-camera-dashboard
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: ADMIN_PASSWORD
+        value: your_admin_password_here
